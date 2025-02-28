@@ -1,5 +1,7 @@
 package chapter3.generic;
 
+import java.util.Comparator;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -25,23 +27,27 @@ public class Main {
 
         //Box<Fruit> fruitBox = new Box<Apple>();; 생성할 때 상속관계여도 에러남 대입된 타입이 일치해야댐!
         //제너릭 클래스 타입이 상속관계있으먼 가능
-        Box<Fruit> fruitBox = new FruitBox<Fruit>();
+        FruitBox<Fruit> fruitBox = new FruitBox<Fruit>();
 
         //Box add(T item)일때
         // item이 Fruit이고 Apple을 넣는다면 가능 상속관계이기 때문
-        fruitBox.add(new Apple());
-        fruitBox.add(new Fruit());
-        fruitBox.add(new Grape());
+        fruitBox.add(new Apple("1", 2));
+        fruitBox.add(new Fruit("2", 324));
+        fruitBox.add(new Grape("3", 112));
 
         //와일드 카드
+        System.out.println(Juicer.makeJuice(fruitBox));
+
+        //형변환
 
 
 
     }
 }
 
-class Juiceer{
-    static Juice makeJuice(FruitBox<? extends Fruit> box){
+//와일드 카드 ㅈ제너릭 메서드
+class Juicer{
+    static <T extends Fruit> Juice makeJuice(FruitBox<T> box){
 
         String temp = "";
         for(Fruit var: box.getList()){
@@ -62,5 +68,13 @@ class Juice{
     @Override
     public String toString() {
         return name;
+    }
+}
+
+class FruitComp implements Comparator<Fruit>{
+
+    @Override
+    public int compare(Fruit o1, Fruit o2) {
+        return o1.weight - o2.weight;
     }
 }
