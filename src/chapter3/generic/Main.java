@@ -33,7 +33,34 @@ public class Main {
         fruitBox.add(new Fruit());
         fruitBox.add(new Grape());
 
+        //와일드 카드
 
 
+
+    }
+}
+
+class Juiceer{
+    static Juice makeJuice(FruitBox<? extends Fruit> box){
+
+        String temp = "";
+        for(Fruit var: box.getList()){
+            temp += var + " ";
+        }
+        return new Juice(temp);
+
+    }
+}
+
+class Juice{
+
+    String name;
+    Juice(String name){
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
