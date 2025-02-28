@@ -1,4 +1,4 @@
 package chapter3.generic;
 
-public class Grape {
+public class Grape extends Fruit{
 }
