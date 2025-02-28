@@ -3,29 +3,26 @@ package chapter3.generic;
 public class Main {
     public static void main(String[] args) {
 
-        //1 재사용 불가
-//        Box box = new Box(1);
-//        //new Box("String");
-//        //new Box(0.1);
-//
-//        //낮은 타입 안정성
-//        ObjectBox objectBox = new ObjectBox("ABC");
-//        //item을 활용하기 위해서는 다운캐스팅 필요  ClassCastException 가능성
-//        String item = (String)objectBox.getItem();
+        Box<String> stringBox = new Box<>();
+        //stringBox.setItem(new Object()); 에러 string 이외에 타입 지정 불가
+        stringBox.setItem("ABC");
+        String item = stringBox.getItem(); // 형변환 필요없음
+        //Object item = stringBox.getItem(); <- 이것도 가능
 
-        //제네릭 활용 <T> 타입 매개변수 1. 타입소거 T -> Object , 2. 자동으로 downCasting
-        GenericBox<String> strBox = new GenericBox<>("ABC");
-        System.out.println(strBox.getItem());
-        GenericBox<Integer> intBox = new GenericBox<>(100);
-        System.out.println(intBox.getItem());
-        GenericBox<Double> doubleBox = new GenericBox<>(0.01);
-        System.out.println(doubleBox.getItem());
+        Box nomalBox = new Box();
+        nomalBox.setItem(new Object());
+        nomalBox.setItem("ABC"); //타입지정 없이도 가능 근데 경고뜸
 
-        //일반메서드 사용하기
-        strBox.printItem("ABC");
-        //strBox.printItem(100);
-        strBox.printBoxItem("ABC");
-        strBox.printBoxItem(100); // 다 들어가네..?
+        Box<Object> objectBox = new Box<>();
+        objectBox.setItem(new Object());
+        objectBox.setItem("ABC"); //Object로 하면 경고 안뜸
+
+        //제너릭 제한
+        Box<Apple> appleBox = new Box<>();
+        Box<Grape> grapeBox = new Box<>(); //가능
+        //모든 객체에 동일하게 동작해야하는 static멤버에 타입변수 적용 불가능
+        //T는 인스턴스 변수로 간주됨
+
 
 
 
